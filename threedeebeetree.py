@@ -68,7 +68,7 @@ class ThreeDeeBeeTree(Generic[I]):
 
     def is_leaf(self, current: BeeNode) -> bool:
         """ Simple check whether or not the node is a leaf. """
-        raise NotImplementedError()
+        return current.left is None and current.right is None
 
 if __name__ == "__main__":
     tdbt = ThreeDeeBeeTree()

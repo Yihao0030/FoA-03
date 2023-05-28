@@ -16,13 +16,29 @@ class Beehive:
 class BeehiveSelector:
 
     def __init__(self, max_beehives: int):
-        raise NotImplementedError()
+        self.beehives = []
 
     def set_all_beehives(self, hive_list: list[Beehive]):
-        raise NotImplementedError()
+        self.beehives = hive_list
     
     def add_beehive(self, hive: Beehive):
-        raise NotImplementedError()
+        self.beehives.append(hive)
     
     def harvest_best_beehive(self):
-        raise NotImplementedError()
+        """
+        Harvest the best beehive, and return the number of emeralds harvested.
+        """
+        res = 0
+        best = None
+
+        for i in range(len(self.beehives)):
+            if min(self.beehives[i].capacity, self.beehives[i].volume)*self.beehives[i].nutrient_factor > res:
+                res = min(self.beehives[i].capacity, self.beehives[i].volume)*self.beehives[i].nutrient_factor
+                best = i
+
+        if self.beehives[best].capacity > self.beehives[best].volume:
+            self.beehives[best].volume = 0
+            return res
+        else:
+            self.beehives[best].volume -= self.beehives[best].capacity
+            return res
